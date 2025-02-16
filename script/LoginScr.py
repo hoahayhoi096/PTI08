@@ -2,6 +2,7 @@ from PyQt6.QtWidgets import QMainWindow, QMessageBox
 import sys
 from PyQt6 import uic 
 import os
+from model.database import AccountDatabase
 
 class Login(QMainWindow):
     def __init__(self, controller):
@@ -12,5 +13,12 @@ class Login(QMainWindow):
         uic.loadUi(ui_path, self)
 
         self.controller = controller
+        self.database = AccountDatabase()
+        self.database.load_data()
+        for account in self.database.account_list:
+            print("Tài khoản: ", account.email, "-", account.password)
 
-        
+
+
+
+
