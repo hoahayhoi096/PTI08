@@ -13,3 +13,22 @@ class MainPage(QMainWindow):
         uic.loadUi(ui_path, self)
 
         self.controller = controller
+
+        self.pushButtonAccount.clicked.connect(self.onPushButtonAccount)
+        self.pushButtonHome.clicked.connect(self.onPushButtonHome)
+        self.pushButtonAnime.clicked.connect(self.onPushButtonAnime)
+        self.pushButtonManager.clicked.connect(self.onPushButtonManager)
+
+    def onPushButtonAccount(self):
+        self.stackedWidget.setCurrentIndex(0)
+
+    def onPushButtonHome(self):
+        self.stackedWidget.setCurrentIndex(1)
+
+    def onPushButtonAnime(self):
+        self.stackedWidget.setCurrentIndex(2)
+
+    def onPushButtonManager(self):
+        self.stackedWidget.setCurrentIndex(3)
+
+
