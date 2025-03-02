@@ -37,5 +37,12 @@
     "image": "ui/images/abc.png",
     "rating": 9,
     "link": "https://abcd"
+  },
+  {
+    "title": "Spider Man",
+    "release_date": "1997",
+    "image": "ui/images/abc.png",
+    "rating": 10.0,
+    "link": ""
   }
 ]

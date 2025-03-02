@@ -21,7 +21,16 @@ class MainPage(QMainWindow):
         self.pushButtonAnime.clicked.connect(self.onPushButtonAnime)
         self.pushButtonManager.clicked.connect(self.onPushButtonManager)
 
+        new_anime = {
+            "title": "Spider Man",
+            "release_date": "1997",
+            "image": "ui/images/abc.png",
+            "rating": 10.0,
+            "link": ""
+        }
+        self.database.add_item_from_dict(new_anime)
         self.setup_manager_page()
+
 
 
 
