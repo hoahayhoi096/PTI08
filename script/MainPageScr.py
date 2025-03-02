@@ -13,11 +13,18 @@ class MainPage(QMainWindow):
         uic.loadUi(ui_path, self)
 
         self.controller = controller
+        self.database = controller.database
 
         self.pushButtonAccount.clicked.connect(self.onPushButtonAccount)
         self.pushButtonHome.clicked.connect(self.onPushButtonHome)
         self.pushButtonAnime.clicked.connect(self.onPushButtonAnime)
         self.pushButtonManager.clicked.connect(self.onPushButtonManager)
+
+        # In thử danh sách đối tượng Anime
+        self.database.load_data()
+        for anime in self.database.anime_list:
+            print(anime.title, "-", anime.release_date, "-", anime.image)
+
 
     def onPushButtonAccount(self):
         self.stackedWidget.setCurrentIndex(0)
