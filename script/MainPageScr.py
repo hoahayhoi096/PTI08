@@ -3,7 +3,7 @@ from PyQt6 import uic
 from PyQt6.QtCore import Qt
 import os
 from config import Config
-from script.DialogScr import AddDialog
+from script.DialogScr import AddDialog, EditDialog
 
 class MainPage(QMainWindow):  
     def __init__(self, controller):
@@ -24,6 +24,7 @@ class MainPage(QMainWindow):
         self.setup_manager_page()
 
         self.pushButtonAdd.clicked.connect(self.onPushButtonAdd)
+        self.pushButtonEdit.clicked.connect(self.onPushButtonEdit)
 
 
     def onPushButtonAccount(self):
@@ -75,4 +76,6 @@ class MainPage(QMainWindow):
             self.database.add_item_from_dict(inputs)
 
 
-        
+    def onPushButtonEdit(self):
+        edit_dialog = EditDialog()
+        edit_dialog.exec()

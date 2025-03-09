@@ -70,3 +70,10 @@ class AddDialog(Dialog):
 
         self.ui.releasedateInput.setDisplayFormat("dd/MM/yyyy")
     
+class EditDialog(Dialog):
+    UI_LOCATION = os.path.join(Config.UI_DIR, "edit_dialog.ui")
+
+    def __init__(self):
+        super().__init__(EditDialog)
+
+        self.ui = uic.loadUi(self.UI_LOCATION, self)

@@ -285,7 +285,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_3">
+               <widget class="QPushButton" name="pushButtonEdit">
                 <property name="text">
                  <string>EDIT</string>
                 </property>
