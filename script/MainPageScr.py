@@ -58,7 +58,21 @@ class MainPage(QMainWindow):
         self.listWidgetAnime.setCurrentRow(0)
     
     def onPushButtonAdd(self):
-        
-        add_dialog = AddDialog()
-        add_dialog.exec()
+        # Lấy dòng hiện tại đang chọn trong listWidgetAnime
+        current_row = self.listWidgetAnime.currentRow()
 
+        add_dialog = AddDialog()
+
+        # Hiển thị dialog và kiểm tra nếu người dùng nhấn OK thì thêm vào ds anime
+        if add_dialog.exec():
+            # Lấy dữ liệu từ hộp thoại ở dụng json (dictionary)
+            inputs = add_dialog.return_input_fields()
+
+            # Thêm bộ anime mới vào listWidgetAnime 
+            self.listWidgetAnime.insertItem(current_row, inputs["title"])
+
+            # Lưu dữ liệu vào cơ sơ dữ liệu
+            self.database.add_item_from_dict(inputs)
+
+
+        
