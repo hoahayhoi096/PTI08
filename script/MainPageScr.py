@@ -3,7 +3,7 @@ from PyQt6 import uic
 from PyQt6.QtCore import Qt
 import os
 from config import Config
-
+from script.DialogScr import AddDialog
 
 class MainPage(QMainWindow):  
     def __init__(self, controller):
@@ -21,17 +21,9 @@ class MainPage(QMainWindow):
         self.pushButtonAnime.clicked.connect(self.onPushButtonAnime)
         self.pushButtonManager.clicked.connect(self.onPushButtonManager)
 
-        new_anime = {
-            "title": "Spider Man",
-            "release_date": "1997",
-            "image": "ui/images/abc.png",
-            "rating": 10.0,
-            "link": ""
-        }
-        self.database.add_item_from_dict(new_anime)
         self.setup_manager_page()
 
-
+        self.pushButtonAdd.clicked.connect(self.onPushButtonAdd)
 
 
     def onPushButtonAccount(self):
@@ -64,5 +56,9 @@ class MainPage(QMainWindow):
             self.listWidgetAnime.addItem(listWidgetItem)
 
         self.listWidgetAnime.setCurrentRow(0)
-
+    
+    def onPushButtonAdd(self):
+        
+        add_dialog = AddDialog()
+        add_dialog.exec()
 

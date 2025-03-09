@@ -1,6 +1,7 @@
 from model.account import Account
 from model.anime import Anime
 from data.data_io import load_account_json_data, write_account_json_data, load_anime_json_data, write_anime_json_data
+from datetime import datetime
 
 class AccountDatabase:
     def __init__(self):
@@ -40,3 +41,9 @@ class AnimeDatabase:
         self.anime_dict_data.append(anime_dict)
         # Ghi dữ liệu mới vào file .json 
         write_anime_json_data(self.anime_dict_data)
+
+def date_to_text(date:datetime):
+    return date.strftime("%b %Y")
+
+def format_date(date_text):
+    return datetime.strptime(date_text, '%b %Y')
