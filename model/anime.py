@@ -7,3 +7,9 @@ class Anime:
         self.image = image
         self.rating = rating
         self.link = link
+
+    # Hàm giúp đi chỉnh sửa lại những trường dữ liệu cần thiết
+    def update(self, new_data):
+        for key, value in new_data.items():
+            if value:
+                setattr(self, key, value)

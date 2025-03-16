@@ -21,6 +21,13 @@ class AnimeDatabase:
         self.anime_list = list()
         self.anime_dict_data = load_anime_json_data()
 
+    # Chuyển đối tượng python sang json
+    def item_to_data(self):
+        json_data = []
+        for item in self.anime_list:
+            json_data.append(item.__dict__)
+        return json_data
+    
     # Lấy dữ liệu json chuyển thành danh sách đối tượng Anime
     def load_data(self):
         for anime_dict in self.anime_dict_data:
@@ -34,13 +41,31 @@ class AnimeDatabase:
         # Tạo đối tượng Anime để thêm vào ds đối tượng Anime 
         new_item = Anime(title=anime_dict["title"], release_date=anime_dict["release_date"],
                             image=anime_dict["image"], rating=anime_dict["rating"], link=anime_dict["link"])
-        
         # Thêm anime mới vào danh sách anime 
         self.anime_list.append(new_item)
         # Thêm vào ds json 
         self.anime_dict_data.append(anime_dict)
         # Ghi dữ liệu mới vào file .json 
         write_anime_json_data(self.anime_dict_data)
+
+    def get_item_by_id(self, id):
+        for item in self.anime_list:
+            if item.id == id:
+                return item
+        return None
+    
+    def edit_item_from_dict(self, edit_id, anime_dict: Anime):
+        # Lấy ra bộ anime cần sửa bằng id của nó
+        item = self.get_item_by_id(edit_id)
+        # Sửa lại thông tin của anime
+        item.update(anime_dict)
+        # Lấy ra danh sách json mới nhất vừa được cập nhật 
+        self.anime_dict_data = self.item_to_data()
+        # Ghi dư liệu mới vào file .json
+        write_anime_json_data(self.anime_dict_data)
+
+
+            
 
 def date_to_text(date:datetime):
     return date.strftime("%b %Y")

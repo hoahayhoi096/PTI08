@@ -77,5 +77,23 @@ class MainPage(QMainWindow):
 
 
     def onPushButtonEdit(self):
-        edit_dialog = EditDialog()
-        edit_dialog.exec()
+        # Lấy dòng hiện tại đang chọn trong listWidgetAnime
+        current_row = self.listWidgetAnime.currentItem()
+
+        if current_row:
+            # Lấy id của anime cần sửa
+            edit_id = current_row.data(Qt.ItemDataRole.UserRole)
+
+            edit_item = self.database.get_item_by_id(edit_id)
+
+            edit_dialog = EditDialog(edit_item)
+            # Mở dialog và kiểm tra nếu người dùng nhấn OK thì sửa thông tin anime
+            if edit_dialog.exec():
+                inputs = edit_dialog.return_input_fields()
+                # Đặt ngay cho tiêu đồ của dòng đang chọn thành tiêu đề mới luôn 
+                current_row.setText(inputs["title"])
+                # Sửa thông tin anime trong cơ sở dữ liệu
+                self.database.edit_item_from_dict(edit_id, inputs)
+
+
+        

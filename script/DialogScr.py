@@ -73,7 +73,21 @@ class AddDialog(Dialog):
 class EditDialog(Dialog):
     UI_LOCATION = os.path.join(Config.UI_DIR, "edit_dialog.ui")
 
-    def __init__(self):
+    def __init__(self, anime: Anime):
         super().__init__(EditDialog)
 
         self.ui = uic.loadUi(self.UI_LOCATION, self)
+        self.anime = anime
+        self.display_data()
+
+    def display_data(self):
+        self.ui.titleInput.setText(self.anime.title)
+        
+        self.ui.releasedateInput.setDate(format_date(self.anime.release_date))
+        self.ui.ratingInput.setText(str(self.anime.rating))
+        self.ui.urlInput.setText(self.anime.link)
+        self.ui.uploadImageButton.setText(self.anime.image)
+
+        self.ui.uploadImageButton.clicked.connect(lambda: self._browse_files)
+
+        self.ui.releasedateInput.setDisplayFormat("dd/MM/yyyy")
