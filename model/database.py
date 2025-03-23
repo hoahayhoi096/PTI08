@@ -64,9 +64,6 @@ class AnimeDatabase:
         # Ghi dư liệu mới vào file .json
         write_anime_json_data(self.anime_dict_data)
 
-
-            
-
 def date_to_text(date:datetime):
     return date.strftime("%b %Y")
 
