@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QMainWindow, QListWidgetItem
+from PyQt6.QtWidgets import QMainWindow, QListWidgetItem, QMessageBox
 from PyQt6 import uic 
 from PyQt6.QtCore import Qt
 import os
@@ -25,6 +25,7 @@ class MainPage(QMainWindow):
 
         self.pushButtonAdd.clicked.connect(self.onPushButtonAdd)
         self.pushButtonEdit.clicked.connect(self.onPushButtonEdit)
+        self.pushButtonDelete.clicked.connect(self.onPushButtonDelete)
 
 
     def onPushButtonAccount(self):
@@ -94,6 +95,42 @@ class MainPage(QMainWindow):
                 current_row.setText(inputs["title"])
                 # Sửa thông tin anime trong cơ sở dữ liệu
                 self.database.edit_item_from_dict(edit_id, inputs)
+
+    def onPushButtonDelete(self):
+        # Lấy chỉ số của item hiện tại trong listWidget
+        curr_index = self.listWidgetAnime.currentRow()
+
+        if curr_index == -1:
+            QMessageBox.warning(self, "Error", "Bạn chưa chọn anime để xoá!")
+            return
+        
+        # Lấp anime hiện tại đang được chọn
+        item = self.listWidgetAnime.item(curr_index)
+        item_title = item.text()
+
+        # Lấy id của bộ anime vừa chọn thông qua User role 
+        anime_id = item.data(Qt.ItemDataRole.UserRole)
+
+        # Hiển thị hộp thoại xác nhận 
+        question = QMessageBox.question(
+            self,
+            "Remove Anime",
+            f"Bạn có muốn xoá bộ anime '{item_title}'?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+
+        if question == QMessageBox.StandardButton.Yes:
+            # Xoá item khỏi listWidget
+            self.listWidgetAnime.takeItem(curr_index)
+
+            # Gọi hàm xoá anime khỏi database(.json)
+            self.database.delete_item(anime_id)
+
+            QMessageBox.information(self, "Success", "Bạn đã xoá anime: " + item_title)
+
+
+
+        
 
 
         
