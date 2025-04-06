@@ -31,6 +31,8 @@ class MainPage(QMainWindow):
         self.setup_rank_page()
 
         self.pushButtonTopAnime.clicked.connect(self.onPushButtonTopAnime)
+        self.pushButtonLastest.clicked.connect(self.onPushButtonLastest)
+        self.pushButtonAtoZ.clicked.connect(self.onPushButtonAtoZ)
 
 
     def onPushButtonAccount(self):
@@ -171,6 +173,16 @@ class MainPage(QMainWindow):
     def onPushButtonTopAnime(self):
         self.database.sort_item_by_rating()
         self.setup_rank_page()
+
+    def onPushButtonLastest(self):
+        self.database.sort_item_by_date()
+        self.setup_rank_page()
+
+    def onPushButtonAtoZ(self):
+        self.database.sort_item_by_title()
+        self.setup_rank_page()
+
+    
 
         
 
