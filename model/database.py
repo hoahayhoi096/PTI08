@@ -2,6 +2,7 @@ from model.account import Account
 from model.anime import Anime
 from data.data_io import load_account_json_data, write_account_json_data, load_anime_json_data, write_anime_json_data
 from datetime import datetime
+import operator
 
 class AccountDatabase:
     def __init__(self):
@@ -73,6 +74,13 @@ class AnimeDatabase:
         self.anime_dict_data = self.item_to_data()
         # Viết lại dữ liệu mới trong file .json 
         write_anime_json_data(self.anime_dict_data)
+
+    def sort_item_by_rating(self):
+        # Đi lấy anime_list hiện tại đi sắp xếp, sau đó lấy kết quả sắp xếp mới đó 
+        # gán vào anime_list hiện tại 
+        self.anime_list = sorted(self.anime_list,
+                                 key=operator.attrgetter('rating'),
+                                 reverse=True)
 
 
 def date_to_text(date:datetime):

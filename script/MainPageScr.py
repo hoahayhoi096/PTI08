@@ -30,6 +30,8 @@ class MainPage(QMainWindow):
 
         self.setup_rank_page()
 
+        self.pushButtonTopAnime.clicked.connect(self.onPushButtonTopAnime)
+
 
     def onPushButtonAccount(self):
         self.stackedWidget.setCurrentIndex(0)
@@ -166,6 +168,11 @@ class MainPage(QMainWindow):
             # Kết hợp item và animeWidget để hiển thị đúng nội dung mong muốn trong listWidgetAnimeRanking
             self.listWidgetAnimeRanking.setItemWidget(item, animeWidget)
 
+    def onPushButtonTopAnime(self):
+        self.database.sort_item_by_rating()
+        self.setup_rank_page()
+
+        
 
 
 
