@@ -1,9 +1,10 @@
-from PyQt6.QtWidgets import QMainWindow, QListWidgetItem, QMessageBox
+from PyQt6.QtWidgets import QMainWindow, QListWidgetItem, QMessageBox, QListView, QAbstractItemView
 from PyQt6 import uic 
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QSize
 import os
 from config import Config
 from script.DialogScr import AddDialog, EditDialog
+from script.AnimeItemScr import AnimeItemWidget
 
 class MainPage(QMainWindow):  
     def __init__(self, controller):
@@ -27,6 +28,8 @@ class MainPage(QMainWindow):
         self.pushButtonEdit.clicked.connect(self.onPushButtonEdit)
         self.pushButtonDelete.clicked.connect(self.onPushButtonDelete)
 
+        self.setup_rank_page()
+
 
     def onPushButtonAccount(self):
         self.stackedWidget.setCurrentIndex(0)
@@ -41,11 +44,11 @@ class MainPage(QMainWindow):
         self.stackedWidget.setCurrentIndex(3)
 
     def setup_manager_page(self):
+        # Xoá đi dữ liệu rác có từ trước nếu có
+        self.listWidgetAnime.clear()
         # Tải toàn bộ dữ liệu json vào ds đối tượng Anime 
         self.database.load_data()
 
-        # Xoá đi dữ liệu rác có từ trước nếu có
-        self.listWidgetAnime.clear()
 
         # Thêm dữ liệ vào listWidget
         for item in self.database.anime_list:
@@ -128,6 +131,46 @@ class MainPage(QMainWindow):
 
             QMessageBox.information(self, "Success", "Bạn đã xoá anime: " + item_title)
 
+    def setup_rank_page(self):
+        # Xoá hết dữ liệu cũ/rác trong listwidget 
+        # Đặt khoảng cách giữa các widget con trong listWidget 
+        self.listWidgetAnimeRanking.clear()
+        self.listWidgetAnimeRanking.setSpacing(10)
+
+        # Đặt chế độ hiển thị item theo chiều ngang 
+        self.listWidgetAnimeRanking.setFlow(QListView.Flow.LeftToRight)
+
+        # Bật thanh cuộng ngang (chỉ cần áp dụng)
+        self.listWidgetAnimeRanking.setHorizontalScrollMode(QAbstractItemView.ScrollMode.ScrollPerPixel)
+        self.listWidgetAnimeRanking.setWrapping(False)  # Không cho phép wrap item xuống dòng
+
+        # Load các widget chứa thông tin các bộ anime lên listWidget
+
+        # Lấy danh sách các đối tượng anime 
+        anime_list = self.database.anime_list
+
+        for anime in anime_list:
+            animeWidget = AnimeItemWidget(anime)
+
+            # Tạo đối tượng con của listWidgetAnimeRanking
+            item = QListWidgetItem(self.listWidgetAnimeRanking)
+
+            # Lưu lại id của bộ anime
+            item.setData(Qt.ItemDataRole.UserRole, anime.id)
+            # Đặt kích thước cố định cho animeWidget
+            animeWidget.setFixedSize(250, 500)
+            # Đặt kích thước cho phần tử con của listWidgetAnimeRanking
+            item.setSizeHint(QSize(250, 500))
+
+            self.listWidgetAnimeRanking.addItem(item)
+            # Kết hợp item và animeWidget để hiển thị đúng nội dung mong muốn trong listWidgetAnimeRanking
+            self.listWidgetAnimeRanking.setItemWidget(item, animeWidget)
+
+
+
+
+
+    
 
 
         

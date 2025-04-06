@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>992</width>
-    <height>699</height>
+    <height>679</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -300,13 +300,55 @@ color: white;</string>
           </layout>
          </widget>
          <widget class="QWidget" name="pageRanking">
-          <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
-            <widget class="QLabel" name="label_3">
-             <property name="text">
-              <string>Trang xếp hạng</string>
+            <widget class="QFrame" name="frame_6">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
              </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <item>
+               <widget class="QPushButton" name="pushButtonTopAnime">
+                <property name="text">
+                 <string>TOP ANIME</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButtonLastest">
+                <property name="text">
+                 <string>LASTEST</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButtonAtoZ">
+                <property name="text">
+                 <string>A-Z</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
             </widget>
+           </item>
+           <item>
+            <widget class="QListWidget" name="listWidgetAnimeRanking"/>
            </item>
           </layout>
          </widget>
