@@ -65,6 +65,24 @@ class MainPage(QMainWindow):
             self.listWidgetAnime.addItem(listWidgetItem)
 
         self.listWidgetAnime.setCurrentRow(0)
+
+    # Hàm làm mới dữ liệu sau khi thêm mới anime
+    def refresh_manager_page(self):
+        # Xoá đi dữ liệu rác có từ trước nếu có
+        self.listWidgetAnime.clear()
+
+        # Thêm dữ liệ vào listWidget
+        for item in self.database.anime_list:
+            # Tạo phần tử con của listWidget
+            listWidgetItem = QListWidgetItem(item.title)
+            # Lưu lại id của anime vào UserRole
+            listWidgetItem.setData(Qt.ItemDataRole.UserRole, item.id)
+
+            # Thêm phần phần tử con vào listWidget
+            self.listWidgetAnime.addItem(listWidgetItem)
+
+        self.listWidgetAnime.setCurrentRow(0)
+
     
     def onPushButtonAdd(self):
         # Lấy dòng hiện tại đang chọn trong listWidgetAnime
@@ -82,6 +100,8 @@ class MainPage(QMainWindow):
 
             # Lưu dữ liệu vào cơ sơ dữ liệu
             self.database.add_item_from_dict(inputs)
+
+        self.refresh_manager_page()
 
 
     def onPushButtonEdit(self):

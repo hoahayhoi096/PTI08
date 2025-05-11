@@ -44,6 +44,8 @@ class AnimeDatabase:
                             image=anime_dict["image"], rating=anime_dict["rating"], link=anime_dict["link"])
         # Thêm anime mới vào danh sách anime 
         self.anime_list.append(new_item)
+        # Thêm Id của anime vào json
+        anime_dict["id"] = new_item.id # Id tự động tạo khi object anime được tạo
         # Thêm vào ds json 
         self.anime_dict_data.append(anime_dict)
         # Ghi dữ liệu mới vào file .json 
